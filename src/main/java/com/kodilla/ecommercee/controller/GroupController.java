@@ -1,9 +1,11 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.dto.GroupDto;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -13,8 +15,8 @@ public class GroupController {
     @GetMapping
     public List<GroupDto> getAllGroups() {
         ArrayList<GroupDto> groups = new ArrayList<>();
-        groups.add(new GroupDto(1L, "AGD"));
-        groups.add(new GroupDto(2L, "RTV"));
+        groups.add(new GroupDto(1L, "AGD", "Sprzęt AGD", Collections.emptyList()));
+        groups.add(new GroupDto(2L, "RTV", "Sprzęt RTV", Collections.emptyList()));
         return groups;
     }
 

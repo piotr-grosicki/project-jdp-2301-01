@@ -12,6 +12,7 @@ import java.util.List;
 public class ProductDto {
     private Long productId;
     private String name;
+    private Long groupId;
     private BigDecimal price;
     private List<Long> cardsId;
     private List<Long> ordersId;
