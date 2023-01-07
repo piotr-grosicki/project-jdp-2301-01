@@ -1,13 +1,11 @@
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.domain.GroupDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.kodilla.ecommercee.domain.dto.GroupDto;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-//MRF
+
 @RestController
 @RequestMapping(path = "/v1/groups")
 public class GroupController {
@@ -18,5 +16,23 @@ public class GroupController {
         groups.add(new GroupDto(1L, "AGD"));
         groups.add(new GroupDto(2L, "RTV"));
         return groups;
+    }
+
+    @GetMapping(value = "{groupId}")
+    public GroupDto getGroup(@PathVariable Long groupId) {
+        return new GroupDto();
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createGroup(@RequestBody GroupDto groupDto) {
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
+        return new GroupDto();
+    }
+
+    @DeleteMapping(value = "{groupId}")
+    public void deleteGroup(@PathVariable Long groupId) {
     }
 }

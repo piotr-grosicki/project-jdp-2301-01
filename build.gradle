@@ -29,7 +29,11 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
     runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'	
     runtimeOnly('com.h2database:h2')
-    compileOnly 'org.projectlombok:lombok' // dodany
-    annotationProcessor 'org.projectlombok:lombok' //dodany
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    compileOnly 'org.projectlombok:lombok:1.18.24' //
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'  //
+
+    testCompileOnly 'org.projectlombok: lombok:1.18.24' //
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24' //
 }
