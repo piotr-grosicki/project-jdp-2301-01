@@ -1,66 +1,42 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import javax.persistence.criteria.Order;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "USERS")
 public class User {
-    private long userId;
-    private String userName;
-    private Cart cart;
-    private List<Order> orders;
-
-    public User(String userName) {
-        this.userName = userName;
-    }
-
-    public User() {
-    }
 
     @Id
     @GeneratedValue
     @NotNull
-    public long getId() {
-        return userId;
-    }
-
-    public void setId(long userId) {
-        this.userId = userId;
-    }
+    @Column(name = "PRODUCT_ID", unique = true)
+    private long userId;
 
     @NotNull
     @Column(name = "USER_NAME")
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    private String userName;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-
-    @OneToMany(targetEntity = Order.class,
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+    @JoinTable(
+            name = " JOIN_USER_CART",
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
     )
-    public List<Order> getOrders() {
-        return orders;
-    }
+    private Cart cart;
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = " JOIN USER_ORDER",
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
+    )
+    private List<Order> orders;
+
 }
