@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@Data
 @Entity(name = "products")
 public class Product {
 
@@ -29,20 +29,20 @@ public class Product {
     @Column(name = "PRICE")
     BigDecimal price;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = " JOIN PRODUCT_CART",
-            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
-    )
-    List<Cart> carts;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = " JOIN PRODUCT_CART",
+//            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+//            inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
+//    )
+//    List<Cart> carts;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = " JOIN PRODUCT_ORDER",
-            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
-    )
-    List<Order> orders;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = " JOIN PRODUCT_ORDER",
+//            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+//            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
+//    )
+//    List<Order> orders;
 
 }
