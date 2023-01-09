@@ -15,5 +15,5 @@ public class UserDto {
     private long userId;
     private String userName;
     private Cart cart;
-    private List<Order> orders;
+    private List<Long> ordersId;
 }
