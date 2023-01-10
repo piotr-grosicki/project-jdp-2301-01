@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity(name = "products")
+@Entity(name = "PRODUCTS")
 public class Product {
 
     @Id
@@ -21,28 +21,31 @@ public class Product {
     private Long productId;
 
     @Column(name = "NAME")
-    String name;
+    private String name;
 
     @Column(name = "DESCRIPTION")
-    String description;
+    private String description;
 
     @Column(name = "PRICE")
-    BigDecimal price;
+    private BigDecimal price;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = " JOIN PRODUCT_CART",
-//            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
-//    )
-//    List<Cart> carts;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = " JOIN PRODUCT_CART",
+            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
+    )
+    private List<Cart> carts;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = " JOIN PRODUCT_ORDER",
-//            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
-//            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
-//    )
-//    List<Order> orders;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = " JOIN PRODUCT_ORDER",
+            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
+    )
+    private List<Order> orders;
 
+    @ManyToOne()
+    @JoinColumn(name = "GROUP_ID")
+    private Group group;
 }
