@@ -1,24 +1,22 @@
 package com.kodilla.ecommercee.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "ORDERS")
 public class Order {
-    private long id;
 
     @Id
     @GeneratedValue
     @NotNull
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    @Column(name = "ORDER_ID", unique = true)
+    private Long orderId;
 }
