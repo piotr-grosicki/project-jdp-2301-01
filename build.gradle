@@ -27,7 +27,7 @@ repositories {
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-web')
-    runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'	
+    runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
     runtimeOnly('com.h2database:h2')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
