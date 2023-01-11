@@ -27,4 +27,8 @@ public class Product {
             inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
     )
     private List<Cart> carts;
+    @ManyToOne()
+    @JoinColumn(name = "GROUP_ID")
+    private Group group;
+
 }
