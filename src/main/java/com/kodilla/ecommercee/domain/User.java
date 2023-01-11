@@ -19,4 +19,7 @@ public class User {
     @Column(name = "USER_ID", unique = true)
     private long userId;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "CART_ID")
+    private Cart cart;
 }
