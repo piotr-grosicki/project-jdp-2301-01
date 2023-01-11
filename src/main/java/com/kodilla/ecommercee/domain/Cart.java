@@ -5,16 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity(name = "CARTS")
+@Entity
+@Table(name = "CARTS")
 public class Cart {
 
     @Id
@@ -22,4 +21,11 @@ public class Cart {
     @NotNull
     @Column(name = "CART_ID", unique = true)
     private Long cartId;
+
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "carts")
+    private List<Product> products;
+
 }
+
