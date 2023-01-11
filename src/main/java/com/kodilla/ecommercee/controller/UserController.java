@@ -20,7 +20,7 @@ public class UserController {
         return new UserDto();
     }
 
-    @DeleteMapping
+    @DeleteMapping(value = "{userId}")
     public void deleteUser(@PathVariable long userId) {
     }
 
