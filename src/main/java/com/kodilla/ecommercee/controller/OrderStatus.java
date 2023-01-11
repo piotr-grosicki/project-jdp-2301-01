@@ -1,5 +1,4 @@
 package com.kodilla.ecommercee.controller;
 
-public class UserController {
+public enum OrderStatus {
 }
-
