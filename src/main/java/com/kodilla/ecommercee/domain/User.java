@@ -3,7 +3,6 @@ package com.kodilla.ecommercee.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -32,3 +31,4 @@ public class User {
     @JoinColumn(name = "ORDER_ID")
     private List<Order> orders;
 }
+
