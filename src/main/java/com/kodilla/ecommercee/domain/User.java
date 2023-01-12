@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -29,6 +30,6 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ORDER_ID")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 }
 

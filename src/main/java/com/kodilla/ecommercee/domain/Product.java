@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -36,7 +37,7 @@ public class Product {
             joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
             inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
     )
-    private List<Cart> carts;
+    private List<Cart> carts = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -44,13 +45,19 @@ public class Product {
             joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
             inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
     )
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     @ManyToOne()
     @JoinColumn(name = "GROUP_ID")
     private Group group;
 
     public Product(String name,String description,BigDecimal price){
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+    public Product(Long productId,String name,String description,BigDecimal price){
+        this.productId = productId;
         this.name = name;
         this.description = description;
         this.price = price;

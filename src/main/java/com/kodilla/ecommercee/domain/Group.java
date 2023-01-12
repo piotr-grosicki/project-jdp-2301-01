@@ -24,6 +24,7 @@ public class Group {
     private String groupName;
     @Column(name = "DESCRIPTION")
     private String groupDescription;
+
     @OneToMany(
             targetEntity = Product.class,
             mappedBy = "group",
@@ -32,6 +33,11 @@ public class Group {
     private List<Product> products = new ArrayList<>();
 
     public Group(String groupName,String groupDescription){
+        this.groupName = groupName;
+        this.groupDescription = groupDescription;
+    }
+    public Group(Long groupId, String groupName,String groupDescription){
+        this.groupId = groupId;
         this.groupName = groupName;
         this.groupDescription = groupDescription;
     }
