@@ -31,4 +31,8 @@ public class Group {
             fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
 
+    public Group(String groupName,String groupDescription){
+        this.groupName = groupName;
+        this.groupDescription = groupDescription;
+    }
 }
