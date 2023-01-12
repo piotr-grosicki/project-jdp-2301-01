@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,10 +21,12 @@ public class Cart {
     @Column(name = "CART_ID", unique = true)
     private Long cartId;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name= "USER_ID")
+    private User user;
+
     @ManyToMany(
             fetch = FetchType.EAGER,
             mappedBy = "carts")
     private List<Product> products;
-
 }
-
