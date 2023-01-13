@@ -1,8 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "GROUPS")
+@Table(name = "PRODUCT_GROUPS")
 public class Group {
     @Id
     @GeneratedValue
@@ -33,11 +31,6 @@ public class Group {
     private List<Product> products = new ArrayList<>();
 
     public Group(String groupName,String groupDescription){
-        this.groupName = groupName;
-        this.groupDescription = groupDescription;
-    }
-    public Group(Long groupId, String groupName,String groupDescription){
-        this.groupId = groupId;
         this.groupName = groupName;
         this.groupDescription = groupDescription;
     }

@@ -26,5 +26,10 @@ public class Order {
     @ManyToMany(
             fetch = FetchType.EAGER,
             mappedBy = "orders")
-    private List<Product> products = new ArrayList<>();
+    private List<Product> orderedProducts = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
 }
