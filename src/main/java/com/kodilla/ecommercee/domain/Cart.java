@@ -27,7 +27,7 @@ public class Cart {
     private User user;
 
     @ManyToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             mappedBy = "carts")
     private List<Product> products = new ArrayList<>();
 }
