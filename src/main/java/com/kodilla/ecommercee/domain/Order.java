@@ -1,12 +1,12 @@
 package com.kodilla.ecommercee.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +20,10 @@ public class Order {
     @NotNull
     @Column(name = "ORDER_ID", unique = true)
     private Long orderId;
+
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "orders")
+    private List<Product> products;
+
 }

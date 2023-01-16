@@ -1,11 +1,11 @@
 package com.kodilla.ecommercee.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,6 +21,15 @@ public class Product {
     @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
 
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Column(name = "PRICE")
+    private BigDecimal price;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = " JOIN PRODUCT_CART",
@@ -28,6 +37,15 @@ public class Product {
             inverseJoinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")}
     )
     private List<Cart> carts;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = " JOIN PRODUCT_ORDER",
+            joinColumns= {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}
+    )
+    private List<Order> orders;
+
     @ManyToOne()
     @JoinColumn(name = "GROUP_ID")
     private Group group;
