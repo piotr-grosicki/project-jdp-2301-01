@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -22,11 +23,12 @@ public class Cart {
     private Long cartId;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "USER_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             mappedBy = "carts")
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
+
 }
