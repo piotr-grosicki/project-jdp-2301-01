@@ -13,15 +13,31 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GroupTestSuite {
+public class GroupRepositoryTest {
 
     @Autowired
     private GroupRepository groupRepository;
     @Autowired
     private ProductRepository productRepository;
+
+    @Test
+    public void testSaveGroup(){
+        //GIVEN & WHEN
+        Group group1 = new Group("Group1", "Description1");
+        Group group2 = new Group("Group2", "Description2");
+        groupRepository.save(group1);
+        groupRepository.save(group2);
+
+        //THEN
+        assertFalse(groupRepository.findAll().isEmpty());
+
+        //CLEAN UP
+        groupRepository.deleteAll();
+    }
 
     @Test
     public void testGetGroupById() {
@@ -34,8 +50,14 @@ public class GroupTestSuite {
         Long id2 = group2.getGroupId();
 
         //WHEN
+
         Group groupById1 = groupRepository.findById(id1).orElse(new Group());
         Group groupById2 = groupRepository.findById(id2).orElse(new Group());
+
+//        System.out.println(group1.getGroupName());
+//        System.out.println(group1.getGroupDescription());
+//        System.out.println(groupById1.getGroupName());
+//        System.out.println(groupById1.getGroupDescription());
 
         //THEN
         assertEquals(group1.getGroupName(), groupById1.getGroupName());
@@ -68,7 +90,25 @@ public class GroupTestSuite {
         groupRepository.deleteById(id2);
 
     }
+    @Test
+    public void testDeleteByGroupId(){
+        //GIVEN
+        Group group1 = new Group("Group1", "Description1");
+        Group group2 = new Group("Group2", "Description2");
+        groupRepository.save(group1);
+        groupRepository.save(group2);
 
+        //WHEN
+        Long id1 = group1.getGroupId();
+        groupRepository.deleteById(id1);
+
+        //THEN
+        assertEquals(1,groupRepository.findAll().size());
+        assertFalse(groupRepository.findById(id1).isPresent());
+
+        //CLEAN UP
+        groupRepository.deleteAll();
+    }
     @Test
     public void testAddProductToGroup() {
         //GIVEN
@@ -84,8 +124,6 @@ public class GroupTestSuite {
         group1.getProducts().add(product2);
 
         Long id1 = group1.getGroupId();
-        Long idProduct1 = product1.getProductId();
-        Long idProduct2 = product2.getProductId();
 
         //WHEN
         int testProductsInGroupSize = group1.getProducts().size();
@@ -94,7 +132,26 @@ public class GroupTestSuite {
         assertEquals(2, testProductsInGroupSize);
         //CLEAN UP
         groupRepository.deleteById(id1);
-        productRepository.deleteById(idProduct1);
-        productRepository.deleteById(idProduct2);
+        productRepository.deleteAll();
+
     }
+    @Test
+    public void testUpdateGroupData(){
+        //GIVEN
+        Group group1 = new Group("Group1", "Description1");
+        groupRepository.save(group1);
+
+        //WHEN
+        Long id1 = group1.getGroupId();
+        Group groupById1 = groupRepository.findById(id1).orElse(new Group());
+        groupById1.setGroupName("ChangedName");
+        groupRepository.save(groupById1);
+
+        //THEN
+        System.out.println(groupRepository.findById(id1).get().getGroupName());
+        assertEquals("ChangedName", groupRepository.findById(id1).get().getGroupName());
+        //CLEANUP
+        groupRepository.deleteAll();
+    }
+
 }
