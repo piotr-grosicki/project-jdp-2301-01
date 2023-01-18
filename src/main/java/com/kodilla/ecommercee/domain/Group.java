@@ -35,3 +35,4 @@ public class Group {
         this.groupDescription = groupDescription;
     }
 }
+
