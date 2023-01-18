@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.time.LocalDate.now;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,4 +42,11 @@ public class Order {
     @NotNull
     @Column(name = "CREATION_DATE")
     private LocalDate orderCreated;
+
+    public Order(List<Product> orderedProducts){
+        this.orderedProducts = orderedProducts;
+        orderStatus = OrderStatus.CREATED;
+        orderCreated = LocalDate.now();
+    }
+
 }

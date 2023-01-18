@@ -37,6 +37,9 @@ public class User {
             fetch = FetchType.LAZY
     )
     private List<Order> orders = new ArrayList<>();
-}
 
+    public User (String userName){
+        this.userName = userName;
+    }
+}
 
