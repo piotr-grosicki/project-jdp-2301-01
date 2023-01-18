@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("v1/product")
 public class ProductController {
 
+
     @GetMapping
     public List<ProductDto> getProducts() {
         return new ArrayList<>();
