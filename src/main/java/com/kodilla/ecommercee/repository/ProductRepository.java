@@ -9,8 +9,8 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface ProductRepository extends CrudRepository<Product,Long> {
-
+public interface ProductRepository extends CrudRepository<Product, Long> {
     @Override
     Optional<Product> findById(Long id);
+
 }
