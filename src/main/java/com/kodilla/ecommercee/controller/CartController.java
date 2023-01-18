@@ -16,16 +16,16 @@ public class CartController {
     public CartDto getCartElements(@PathVariable Long cartId){
         return null;
     }
-    @PutMapping(value ="add")
-    public void addProductToCart(@RequestParam Long productId){
+    @PutMapping(value ="{cartId}/{productId}")
+    public void addProductToCart(@PathVariable Long cartId, @PathVariable Long productId){
 
     }
-    @PutMapping(value ="delete")
-    public void deleteProductFromCard(@RequestParam Long productId){
+    @DeleteMapping(value ="{cartId}/{productId}")
+    public void deleteProductFromCard(@PathVariable Long cartId, @PathVariable Long productId){
 
     }
-    @PutMapping(value ="order")
-    public void makeOrderFromCart(){
+    @PostMapping(value ="order/{cartId}")
+    public void makeOrderFromCart(@PathVariable Long cartId){
 
     }
 }
