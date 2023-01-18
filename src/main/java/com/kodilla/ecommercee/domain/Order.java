@@ -48,5 +48,4 @@ public class Order {
         orderStatus = OrderStatus.CREATED;
         orderCreated = LocalDate.now();
     }
-
 }
