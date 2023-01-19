@@ -32,4 +32,8 @@ public class Order {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    public Order(List<Product> orderedProducts, User user) {
+        this.orderedProducts = orderedProducts;
+        this.user = user;
+    }
 }

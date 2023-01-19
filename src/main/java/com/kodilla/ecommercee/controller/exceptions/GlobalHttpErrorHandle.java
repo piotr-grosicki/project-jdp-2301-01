@@ -12,4 +12,20 @@ public class GlobalHttpErrorHandle extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNotFoundException(GroupNotFoundException exception){
         return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(CartNotFoundException exception){
+        return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(UserNotFoundException exception){
+        return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(ProductNotFoundException exception){
+        return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(NoProductsInCartException exception){
+        return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
+    }
 }
