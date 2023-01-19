@@ -30,4 +30,7 @@ public class Cart {
             fetch = FetchType.LAZY,
             mappedBy = "carts")
     private List<Product> products = new ArrayList<>();
+
+    public Cart(String cart1) {
+    }
 }
