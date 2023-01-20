@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,23 +26,22 @@ public class ProductController {
 
     @GetMapping(value = "{productId}")
     public ProductDto getProduct(@PathVariable Long productId) {
-        return new ProductDto();
+        return productMapper.mapToProductDto(productService.getById(productId));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createProduct(@RequestBody NewProductDto newProductDto) {
         Product product = productMapper.mapToNewProduct(newProductDto);
         productService.createProduct(product);
-
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return new ProductDto();
+        return productMapper.mapToProductDto(productService.updateProduct(productMapper.mapToProduct(productDto)));
     }
-
 
     @DeleteMapping(value = "{productId}")
     public void deleteProduct(@PathVariable Long productId) {
+        productService.delete(productId);
     }
 }

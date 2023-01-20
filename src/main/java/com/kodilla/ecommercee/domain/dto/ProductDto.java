@@ -18,8 +18,8 @@ public class ProductDto {
     private Long groupId;
 
     private BigDecimal price;
-    private List<Long> cardsId = new ArrayList<>();
-    private List<Long> ordersId = new ArrayList<>();
+    private List<Long> cartsIds = new ArrayList<>();
+    private List<Long> ordersIds = new ArrayList<>();
 
     public ProductDto(String name, String description, Long groupId, BigDecimal price) {
         this.name = name;
