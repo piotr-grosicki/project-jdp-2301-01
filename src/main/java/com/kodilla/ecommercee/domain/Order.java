@@ -28,7 +28,7 @@ public class Order {
     private Long orderId;
 
     @ManyToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             mappedBy = "orders")
     private List<Product> orderedProducts = new ArrayList<>();
 
