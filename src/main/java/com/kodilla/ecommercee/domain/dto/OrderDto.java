@@ -15,6 +15,13 @@ public class OrderDto {
     private long orderId;
     private OrderStatus orderStatus;
     private LocalDate orderIssued;
-    private UserDto user;
-    private List<ProductDto> products;
+    private Long userId;
+    private List<Long> productsId;
+
+    public OrderDto(OrderStatus orderStatus, LocalDate orderIssued, Long userId, List<Long> productsId) {
+        this.orderStatus = orderStatus;
+        this.orderIssued = orderIssued;
+        this.userId = userId;
+        this.productsId = productsId;
+    }
 }
