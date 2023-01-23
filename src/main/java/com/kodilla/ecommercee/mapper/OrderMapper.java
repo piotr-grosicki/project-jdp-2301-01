@@ -5,6 +5,7 @@ import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.GroupDto;
+import com.kodilla.ecommercee.domain.dto.NewOrderDto;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
@@ -58,5 +59,14 @@ public class OrderMapper {
         return orders.stream()
                 .map(this::mapToOrderDto)
                 .collect(Collectors.toList());
+    }
+
+    public Order mapToNewOrder(NewOrderDto newOrderDto) throws UserNotFoundException {
+        return new Order(
+                findAllById(newOrderDto.getProductsId()),
+                userRepository.findById(newOrderDto.getUserId()).orElseThrow(UserNotFoundException::new),
+                newOrderDto.getOrderStatus(),
+                newOrderDto.getOrderIssued()
+        );
     }
 }

@@ -11,11 +11,10 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDto {
-    private long orderId;
+public class NewOrderDto {
+    private List<Long> productsId;
+    private Long userId;
     private OrderStatus orderStatus;
     private LocalDate orderIssued;
-    private Long userId;
-    private List<Long> productsId;
 
 }

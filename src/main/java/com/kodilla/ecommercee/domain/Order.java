@@ -49,4 +49,10 @@ public class Order {
         orderCreated = LocalDate.now();
     }
 
+    public Order(List<Product> orderedProducts, User user, OrderStatus orderStatus, LocalDate orderCreated) {
+        this.orderedProducts = orderedProducts;
+        this.user = user;
+        this.orderStatus = orderStatus;
+        this.orderCreated = orderCreated;
+    }
 }

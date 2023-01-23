@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.dto.NewOrderDto;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.repository.UserRepository;
@@ -35,8 +36,8 @@ public class OrderController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createOrder(@RequestBody OrderDto orderDto) throws UserNotFoundException {
-        Order order = orderMapper.mapToOrder(orderDto);
+    public ResponseEntity<Void> createOrder(@RequestBody NewOrderDto newOrderDto) throws UserNotFoundException {
+        Order order = orderMapper.mapToNewOrder(newOrderDto);
         orderService.saveOrder(order);
         return ResponseEntity.ok().build();
     }
