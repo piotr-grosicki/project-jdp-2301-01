@@ -8,6 +8,7 @@ import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.CartDto;
+import com.kodilla.ecommercee.domain.dto.NewCartDto;
 import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.service.CartService;
 import com.kodilla.ecommercee.service.OrderService;
@@ -30,9 +31,9 @@ public class CartController {
     private final CartMapper cartMapper;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> cartCreation(@RequestBody CartDto cartDto) throws UserNotFoundException {
-        Cart cart = cartMapper.mapToCart(cartDto);
-        cartService.saveCart(cart);
+    public ResponseEntity<Void> cartCreation(@RequestBody NewCartDto newCartDto) throws UserNotFoundException {
+        Cart newCart = cartMapper.mapToNewCart(newCartDto);
+        cartService.saveCart(newCart);
         return ResponseEntity.ok().build();
     }
 

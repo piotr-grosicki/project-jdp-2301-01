@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.CartDto;
+import com.kodilla.ecommercee.domain.dto.NewCartDto;
 import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
@@ -17,8 +18,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class CartMapper {
-
-    CartRepository cartRepository;
     UserRepository userRepository;
     ProductRepository productRepository;
 
@@ -46,5 +45,11 @@ public class CartMapper {
             }
         }
         return results;
+    }
+
+    public Cart mapToNewCart(NewCartDto newCartDto) throws UserNotFoundException {
+        return new Cart(
+                userRepository.findById(newCartDto.getUserId()).orElseThrow(UserNotFoundException::new),
+                findAllById(newCartDto.getProductsId()));
     }
 }
