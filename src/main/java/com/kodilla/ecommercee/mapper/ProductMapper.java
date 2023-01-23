@@ -1,24 +1,32 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.controller.exceptions.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.NewProductDto;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
+import com.kodilla.ecommercee.repository.CartRepository;
+import com.kodilla.ecommercee.repository.GroupRepository;
+import com.kodilla.ecommercee.repository.OrderRepository;
+import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class ProductMapper {
 
+    OrderRepository orderRepository;
+    CartRepository cartRepository;
+    GroupRepository groupRepository;
 
-    public Product mapToNewProduct(NewProductDto newProductDto) {
-        //toDo add group mapping when GroupService is ready/done
-        return new Product(newProductDto.getName(), newProductDto.getDescription(), newProductDto.getPrice());
+    public Product mapToNewProduct(NewProductDto newProductDto) throws GroupNotFoundException {
+        return new Product(newProductDto.getName(), newProductDto.getDescription(),groupRepository.findById(newProductDto.getGroupId()).orElseThrow(GroupNotFoundException::new),newProductDto.getPrice());
     }
 
     public List<ProductDto> mapToProductDtoList(List<Product> products) {
@@ -37,13 +45,13 @@ public class ProductMapper {
 
     private List<Long> mapToOrdersIds(List<Order> orders) {
         return orders.stream()
-                .map(c -> c.getOrderId())
+                .map(Order::getOrderId)
                 .collect(Collectors.toList());
     }
 
     private List<Long> mapToCartsIds(List<Cart> carts) {
         return carts.stream()
-                .map(c -> c.getCartId())
+                .map(Cart::getCartId)
                 .collect(Collectors.toList());
     }
 
@@ -58,7 +66,7 @@ public class ProductMapper {
                 mapToOrdersIds(product.getOrders()));
     }
 
-    public Product mapToProduct(ProductDto productDto) {
+    public Product mapToProduct(ProductDto productDto) throws GroupNotFoundException {
         return new Product(
                 productDto.getProductId(),
                 productDto.getName(),
@@ -71,17 +79,26 @@ public class ProductMapper {
     }
 
     private List<Cart> mapToCarts(List<Long> cartsIds) {
-        //toDo add cart mapping when CartService is ready
-        return Collections.emptyList();
+        List<Cart> results = new ArrayList<>();
+        if (Objects.nonNull(cartsIds)) {
+            for (Long id : cartsIds) {
+                cartRepository.findById(id).ifPresent(results::add);
+            }
+        }
+        return results;
     }
 
     private List<Order> mapToOrders(List<Long> ordersIds) {
-        //toDo add order mapping when OrderService is ready
-        return Collections.emptyList();
+        List<Order> results = new ArrayList<>();
+        if (Objects.nonNull(ordersIds)) {
+            for (Long id : ordersIds) {
+                orderRepository.findById(id).ifPresent(results::add);
+            }
+        }
+        return results;
     }
 
-    private Group mapToGroup(Long groupId) {
-        //toDo add group mapping when GroupService is ready
-        return null;
+    private Group mapToGroup(Long groupId) throws GroupNotFoundException {
+       return groupRepository.findById(groupId).orElseThrow(GroupNotFoundException::new);
     }
 }
