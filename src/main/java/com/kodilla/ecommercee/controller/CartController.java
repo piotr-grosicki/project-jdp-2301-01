@@ -9,10 +9,9 @@ import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.CartDto;
 import com.kodilla.ecommercee.mapper.CartMapper;
-import com.kodilla.ecommercee.repository.CartRepository;
-import com.kodilla.ecommercee.service.CartDbService;
-import com.kodilla.ecommercee.service.OrderDbService;
-import com.kodilla.ecommercee.service.ProductDbService;
+import com.kodilla.ecommercee.service.CartService;
+import com.kodilla.ecommercee.service.OrderService;
+import com.kodilla.ecommercee.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,52 +24,52 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("v1/cart")
 public class CartController {
-    private final CartDbService cartDbService;
-    private final ProductDbService productDbService;
-    private final OrderDbService orderDbService;
+    private final CartService cartService;
+    private final ProductService productService;
+    private final OrderService orderService;
     private final CartMapper cartMapper;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> cartCreation(@RequestBody CartDto cartDto) throws UserNotFoundException {
         Cart cart = cartMapper.mapToCart(cartDto);
-        cartDbService.saveCart(cart);
+        cartService.saveCart(cart);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "{cartId}")
     public ResponseEntity<CartDto> getCartElements(@PathVariable Long cartId) throws CartNotFoundException {
-        return ResponseEntity.ok(cartMapper.mapToCartDto(cartDbService.getCart(cartId)));
+        return ResponseEntity.ok(cartMapper.mapToCartDto(cartService.getCart(cartId)));
     }
 
     @PutMapping(value = "{cartId}/{productId}")
     public ResponseEntity<Void> addProductToCart(@PathVariable Long cartId, @PathVariable Long productId) throws CartNotFoundException, ProductNotFoundException {
-        Cart cart = cartDbService.getCart(cartId);
-        Product product = productDbService.getProduct(productId);
+        Cart cart = cartService.getCart(cartId);
+        Product product = productService.getProduct(productId);
         cart.getProducts().add(product);
-        cartDbService.saveCart(cart);
+        cartService.saveCart(cart);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "{cartId}/{productId}")
     public ResponseEntity<Void> deleteProductFromCard(@PathVariable Long cartId, @PathVariable Long productId) throws CartNotFoundException, ProductNotFoundException {
-        Cart cart = cartDbService.getCart(cartId);
-        Product product = productDbService.getProduct(productId);
+        Cart cart = cartService.getCart(cartId);
+        Product product = productService.getProduct(productId);
         cart.getProducts().remove(product);
-        cartDbService.saveCart(cart);
+        cartService.saveCart(cart);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "order/{cartId}")
     public ResponseEntity<Void> makeOrderFromCart(@PathVariable Long cartId) throws CartNotFoundException, NoProductsInCartException {
-        Cart cart = cartDbService.getCart(cartId);
+        Cart cart = cartService.getCart(cartId);
         if(cart.getProducts().isEmpty()){
            throw new NoProductsInCartException();
         }else{
             Order order = new Order(cart.getProducts(), cart.getUser());
-            orderDbService.saveOrder(order);
+            orderService.saveOrder(order);
             List<Product> emptyList = new ArrayList<>();
             cart.setProducts(emptyList);
-            cartDbService.saveCart(cart);
+            cartService.saveCart(cart);
             return ResponseEntity.ok().build();
         }
     }

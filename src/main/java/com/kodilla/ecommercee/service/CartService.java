@@ -2,14 +2,13 @@ package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.controller.exceptions.CartNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CartDbService {
+public class CartService {
 
     private final CartRepository cartRepository;
 

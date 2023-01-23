@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GroupDbService {
+public class GroupService {
 
     private final GroupRepository groupRepository;
 
