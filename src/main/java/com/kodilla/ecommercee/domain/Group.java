@@ -34,4 +34,10 @@ public class Group {
         this.groupName = groupName;
         this.groupDescription = groupDescription;
     }
+
+    public Group(String groupName, String groupDescription, List<Product> products) {
+        this.groupName = groupName;
+        this.groupDescription = groupDescription;
+        this.products = products;
+    }
 }
