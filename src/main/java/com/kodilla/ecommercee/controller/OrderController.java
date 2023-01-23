@@ -3,11 +3,12 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.controller.exceptions.OrderNotFoundException;
 import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.NewOrderDto;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.mapper.OrderMapper;
-import com.kodilla.ecommercee.repository.UserRepository;
 import com.kodilla.ecommercee.service.OrderService;
+import com.kodilla.ecommercee.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,12 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final OrderMapper orderMapper;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    @GetMapping
-    public ResponseEntity<List<OrderDto>>  getOrders() {
-        List<Order> orders = orderService.getAllOrders();
+    @GetMapping(value = "{userId}")
+    public ResponseEntity<List<OrderDto>>  getOrders(@PathVariable Long userId) throws UserNotFoundException {
+        User user = userService.findById(userId);
+        List<Order> orders = user.getOrders();
         return ResponseEntity.ok(orderMapper.mapToOrdersDto(orders));
     }
 
@@ -48,7 +50,7 @@ public class OrderController {
         order.setOrderCreated(orderDto.getOrderIssued());
         order.setOrderStatus(orderDto.getOrderStatus());
         order.setOrderedProducts(orderMapper.findAllById(orderDto.getProductsId()));
-        order.setUser(userRepository.findById(orderDto.getUserId()).orElseThrow(UserNotFoundException::new));
+        order.setUser(userService.findById(orderDto.getUserId()));
         Order updatedOrder = orderService.saveOrder(order);
         return ResponseEntity.ok(orderMapper.mapToOrderDto(updatedOrder));
     }
