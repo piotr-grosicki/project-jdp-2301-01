@@ -56,7 +56,7 @@ public class UserTestSuite {
     public void createUserTest(){
         //GIVEN
         User userC = new User();
-        Cart cart1 = new Cart("Cart1");
+        Cart cart1 = new Cart();
         userC.setCart(cart1);
         //WHEN
         userRepository.save(userC);
@@ -147,4 +147,5 @@ public class UserTestSuite {
         userRepository.deleteById(id8);
         orderRepository.deleteAll();
     }
+
 }

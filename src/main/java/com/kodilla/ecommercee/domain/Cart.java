@@ -31,6 +31,4 @@ public class Cart {
             mappedBy = "carts")
     private List<Product> products = new ArrayList<>();
 
-    public Cart(String cart1) {
-    }
 }
