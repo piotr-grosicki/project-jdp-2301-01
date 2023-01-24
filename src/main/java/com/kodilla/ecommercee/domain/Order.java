@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.time.LocalDate.now;
 
 @Data
 @AllArgsConstructor
@@ -49,4 +48,8 @@ public class Order {
         orderCreated = LocalDate.now();
     }
 
+    public Order(List<Product> orderedProducts, User user) {
+        this.orderedProducts = orderedProducts;
+        this.user = user;
+    }
 }
