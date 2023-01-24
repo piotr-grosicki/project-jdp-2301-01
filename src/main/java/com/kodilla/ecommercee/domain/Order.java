@@ -39,7 +39,6 @@ public class Order {
     @Column(name = "ORDER_STATUS")
     private OrderStatus orderStatus;
 
-    @NotNull
     @Column(name = "CREATION_DATE")
     private LocalDate orderCreated;
 
@@ -54,10 +53,5 @@ public class Order {
         this.user = user;
         orderStatus = OrderStatus.CREATED;
         orderCreated = LocalDate.now();
-    }
-    public Order(User user, OrderStatus orderStatus, LocalDate orderCreated) {
-        this.user = user;
-        this.orderStatus = orderStatus;
-        this.orderCreated = orderCreated;
     }
 }

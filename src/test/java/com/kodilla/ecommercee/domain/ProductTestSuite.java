@@ -164,8 +164,8 @@ public class ProductTestSuite {
         productRepository.save(productL);
         productRepository.save(productM);
         //WHEN
-        Order order1 = new Order(null, CREATED, LocalDate.of(2023,1,9));
-        Order order2 = new Order(null, PAID, LocalDate.of(2023,1,12));
+        Order order1 = new Order();
+        Order order2 = new Order();
         order1.getOrderedProducts().add(productL);
         order1.getOrderedProducts().add(productM);
         order2.getOrderedProducts().add(productL);
