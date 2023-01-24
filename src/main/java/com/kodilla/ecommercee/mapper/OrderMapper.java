@@ -1,10 +1,8 @@
 package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.controller.exceptions.UserNotFoundException;
-import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.dto.GroupDto;
 import com.kodilla.ecommercee.domain.dto.NewOrderDto;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.repository.ProductRepository;
@@ -66,7 +64,6 @@ public class OrderMapper {
                 findAllById(newOrderDto.getProductsId()),
                 userRepository.findById(newOrderDto.getUserId()).orElseThrow(UserNotFoundException::new),
                 newOrderDto.getOrderStatus(),
-                newOrderDto.getOrderIssued()
-        );
+                newOrderDto.getOrderIssued());
     }
 }

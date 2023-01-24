@@ -178,7 +178,7 @@ public class ProductTestSuite {
         assertEquals(2, testProductsInOrder1);
         assertEquals(2, testProductsInOrder2);
         //CLEANUP
-        productRepository.deleteAll();
         orderRepository.deleteAll();
+        productRepository.deleteAll();
     }
 }
