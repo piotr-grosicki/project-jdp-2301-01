@@ -60,10 +60,10 @@ public class OrderTestSuite {
         order.getOrderedProducts().add(product);
         userRepository.save(user);
         orderRepository.save(order);
-        boolean isProductAvailable = orderRepository.findById(order.getOrderId()).isPresent();
+        Product addedProduct = order.getOrderedProducts().get(product.getProductId().intValue());
 
         //THEN
-        assertTrue(isProductAvailable);
+        assertEquals(product, addedProduct);
 
         //CLEAN UP
         orderRepository.deleteById(order.getOrderId());
