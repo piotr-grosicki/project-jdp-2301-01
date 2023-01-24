@@ -23,9 +23,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
-    private final UserRepository userRepository;
     private final CartRepository cartRepository;
-    private final OrderRepository orderRepository;
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getUsers(){
@@ -51,7 +49,7 @@ public class UserController {
         User user = userService.findById(userDto.getUserId());
         user.setUserName(userDto.getUserName());
         user.setCart(cartRepository.findById(userDto.getCartId()).orElseThrow(CartNotFoundExceptions::new));
-        user.setOrdersId(userMapper.findAllById(userDto.getOrdersId()));
+        user.setOrders(userMapper.findAllById(userDto.getOrdersId()));
         User updatedUser = userService.saveUser(user);
         return ResponseEntity.ok(userMapper.mapToUserDto(updatedUser));
     }

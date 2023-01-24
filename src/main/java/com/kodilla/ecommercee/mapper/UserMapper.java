@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.controller.exceptions.CartNotFoundExceptions;
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.UserDto;
@@ -25,7 +26,7 @@ public class UserMapper {
                 userDto.getUserId(),
                 userDto.getUserName(),
                 cartRepository.findById(userDto.getCartId()).orElseThrow(CartNotFoundExceptions::new),
-                userDto.getOrdersId()
+                findAllById(userDto.getOrdersId())
         );
     }
 
@@ -34,7 +35,7 @@ public class UserMapper {
                 user.getUserId(),
                 user.getUserName(),
                 user.getCart().getCartId(),
-                user.getOrdersId()
+                mapToOrdersIds(user.getOrders())
         );
     }
 
@@ -44,15 +45,19 @@ public class UserMapper {
                 .collect(Collectors.toList());
     }
 
-    public List<Long> findAllById(List<Long> ordersId) {
-        List<Long> results = new ArrayList<>();
+    public List<Order> findAllById(List<Long> ordersId) {
+        List<Order> results = new ArrayList<>();
         if (Objects.nonNull(ordersId)) {
             for (Long id : ordersId) {
-                if (orderRepository.findById(id).isPresent()) {
-                    results.add(id);
-                }
+                orderRepository.findById(id).ifPresent(results::add);
             }
         }
         return results;
+    }
+
+    private List<Long> mapToOrdersIds(List<Order> orders) {
+        return orders.stream()
+                .map(Order::getOrderId)
+                .collect(Collectors.toList());
     }
 }

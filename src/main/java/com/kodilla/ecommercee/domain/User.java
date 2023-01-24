@@ -36,6 +36,11 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<Long> ordersId = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
+
+    public User (String userName){
+        this.userName = userName;
+    }
 }
+
 
