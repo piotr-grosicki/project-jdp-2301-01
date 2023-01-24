@@ -31,4 +31,8 @@ public class Cart {
             mappedBy = "carts")
     private List<Product> products = new ArrayList<>();
 
+    public Cart(User user, List<Product> products) {
+        this.user = user;
+        this.products = products;
+    }
 }
