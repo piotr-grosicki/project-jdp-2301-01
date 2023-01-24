@@ -164,8 +164,7 @@ public class CartTestSuite {
         for (Product product : cart.getProducts()) {
             clonedCart.add(product);
         }
-        Order orderFromCart = new Order(clonedCart);
-        orderFromCart.setUser(user);
+        Order orderFromCart = new Order(clonedCart,user);
         orderRepository.save(orderFromCart);
         //THEN
         assertTrue(orderRepository.findById(orderFromCart.getOrderId()).isPresent());

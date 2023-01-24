@@ -28,4 +28,8 @@ public class GlobalHttpErrorHandle extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNotFoundException(NoProductsInCartException exception){
         return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(OrderNotFoundException exception){
+        return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
+    }
 }

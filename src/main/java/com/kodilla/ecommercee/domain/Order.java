@@ -42,14 +42,16 @@ public class Order {
     @Column(name = "CREATION_DATE")
     private LocalDate orderCreated;
 
-    public Order(List<Product> orderedProducts){
+    public Order(List<Product> orderedProducts, User user, OrderStatus orderStatus, LocalDate orderCreated) {
         this.orderedProducts = orderedProducts;
-        orderStatus = OrderStatus.CREATED;
-        orderCreated = LocalDate.now();
+        this.user = user;
+        this.orderStatus = orderStatus;
+        this.orderCreated = orderCreated;
     }
-
     public Order(List<Product> orderedProducts, User user) {
         this.orderedProducts = orderedProducts;
         this.user = user;
+        orderStatus = OrderStatus.CREATED;
+        orderCreated = LocalDate.now();
     }
 }
