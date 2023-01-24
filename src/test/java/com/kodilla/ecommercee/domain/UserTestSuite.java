@@ -129,9 +129,9 @@ public class UserTestSuite {
         //GIVEN
         User userI = new User("UserI");
         userRepository.save(userI);
-        Order order1 = new Order(null, CREATED, LocalDate.of(2023,1,9));
-        Order order2 = new Order(null, PAID, LocalDate.of(2023,1,12));
-        Order order3 = new Order(null, PAID, LocalDate.of(2023, 1, 15));
+        Order order1 = new Order();
+        Order order2 = new Order();
+        Order order3 = new Order();
         orderRepository.save(order1);
         orderRepository.save(order2);
         orderRepository.save(order3);

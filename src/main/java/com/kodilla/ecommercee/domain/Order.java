@@ -39,7 +39,6 @@ public class Order {
     @Column(name = "ORDER_STATUS")
     private OrderStatus orderStatus;
 
-    @NotNull
     @Column(name = "CREATION_DATE")
     private LocalDate orderCreated;
 
