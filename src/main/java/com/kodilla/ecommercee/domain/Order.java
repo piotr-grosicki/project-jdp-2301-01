@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.time.LocalDate.now;
 
 @Data
 @AllArgsConstructor
@@ -43,16 +42,16 @@ public class Order {
     @Column(name = "CREATION_DATE")
     private LocalDate orderCreated;
 
-    public Order(List<Product> orderedProducts){
-        this.orderedProducts = orderedProducts;
-        orderStatus = OrderStatus.CREATED;
-        orderCreated = LocalDate.now();
-    }
-
     public Order(List<Product> orderedProducts, User user, OrderStatus orderStatus, LocalDate orderCreated) {
         this.orderedProducts = orderedProducts;
         this.user = user;
         this.orderStatus = orderStatus;
         this.orderCreated = orderCreated;
+    }
+    public Order(List<Product> orderedProducts, User user) {
+        this.orderedProducts = orderedProducts;
+        this.user = user;
+        orderStatus = OrderStatus.CREATED;
+        orderCreated = LocalDate.now();
     }
 }
