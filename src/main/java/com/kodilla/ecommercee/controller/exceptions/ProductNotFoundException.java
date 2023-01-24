@@ -1,4 +1,4 @@
 package com.kodilla.ecommercee.controller.exceptions;
 
-public class GroupNotFoundException extends Exception {
+public class ProductNotFoundException extends Exception{
 }

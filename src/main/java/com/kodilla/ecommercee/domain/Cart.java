@@ -23,7 +23,7 @@ public class Cart {
     private Long cartId;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "USER_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToMany(

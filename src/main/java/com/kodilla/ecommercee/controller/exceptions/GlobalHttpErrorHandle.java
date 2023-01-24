@@ -8,6 +8,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class GlobalHttpErrorHandle extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(ProductNotFoundException exception){
+        return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
+    }
     @ExceptionHandler
     public ResponseEntity<Object> handleNotFoundException(GroupNotFoundException exception){
         return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
