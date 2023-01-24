@@ -45,7 +45,7 @@ public class CartController {
     @PutMapping(value = "{cartId}/{productId}")
     public ResponseEntity<Void> addProductToCart(@PathVariable Long cartId, @PathVariable Long productId) throws CartNotFoundException, ProductNotFoundException {
         Cart cart = cartService.getCart(cartId);
-        Product product = productService.getProduct(productId);
+        Product product = productService.getById(productId);
         cart.getProducts().add(product);
         cartService.saveCart(cart);
         return ResponseEntity.ok().build();
@@ -54,7 +54,7 @@ public class CartController {
     @DeleteMapping(value = "{cartId}/{productId}")
     public ResponseEntity<Void> deleteProductFromCard(@PathVariable Long cartId, @PathVariable Long productId) throws CartNotFoundException, ProductNotFoundException {
         Cart cart = cartService.getCart(cartId);
-        Product product = productService.getProduct(productId);
+        Product product = productService.getById(productId);
         cart.getProducts().remove(product);
         cartService.saveCart(cart);
         return ResponseEntity.ok().build();

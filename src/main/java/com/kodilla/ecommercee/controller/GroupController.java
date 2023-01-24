@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.controller.exceptions.GroupNotFoundException;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.dto.GroupDto;
+import com.kodilla.ecommercee.domain.dto.NewGroupDto;
 import com.kodilla.ecommercee.mapper.GroupMapper;
 import com.kodilla.ecommercee.service.GroupService;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +33,9 @@ public class GroupController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createGroup(@RequestBody GroupDto groupDto) {
-        Group group = groupMapper.mapToGroup(groupDto);
-        groupService.saveGroup(group);
+    public ResponseEntity<Void> createGroup(@RequestBody NewGroupDto newGroupDto) {
+        Group newGroup = groupMapper.mapToNewGroup(newGroupDto);
+        groupService.saveGroup(newGroup);
         return ResponseEntity.ok().build();
     }
 

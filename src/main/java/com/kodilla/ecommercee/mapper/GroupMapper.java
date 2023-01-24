@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.mapper;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.GroupDto;
+import com.kodilla.ecommercee.domain.dto.NewGroupDto;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class GroupMapper {
                         .map(Product::getProductId)
                         .collect(Collectors.toList())
         );
+
     }
 
     public List<GroupDto> mapToGroupsDto(List<Group> groups) {
@@ -47,5 +49,12 @@ public class GroupMapper {
             }
         }
         return results;
+    }
+
+    public Group mapToNewGroup(NewGroupDto newGroupDto) {
+        return new Group(
+                newGroupDto.getGroupName(),
+                newGroupDto.getGroupDescription(),
+                findAllById(newGroupDto.getProductsId()));
     }
 }

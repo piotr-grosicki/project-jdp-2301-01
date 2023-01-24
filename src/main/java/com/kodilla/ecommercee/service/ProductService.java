@@ -6,15 +6,43 @@ import com.kodilla.ecommercee.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Transactional
 @RequiredArgsConstructor
+@Service
 public class ProductService {
+
     private final ProductRepository productRepository;
 
-    public Product getProduct(final Long productId) throws ProductNotFoundException {
+    public void createProduct(Product product) {
+        productRepository.save(product);
+    }
+
+    public List<Product> getAll() {
+        return productRepository.findAll();
+    }
+
+    public Product getById(Long productId) throws ProductNotFoundException{
         return productRepository.findById(productId).orElseThrow(ProductNotFoundException::new);
     }
-    public Product saveProduct(final Product product) {
-        return productRepository.save(product);
+
+    public Product updateProduct(Product product) throws ProductNotFoundException {
+        Product toUpdate = getById(product.getProductId());
+        toUpdate.setName(product.getName());
+        toUpdate.setDescription(product.getDescription());
+        toUpdate.setGroup(product.getGroup());
+        toUpdate.setPrice(product.getPrice());
+        toUpdate.setCarts(product.getCarts());
+        toUpdate.setOrders(product.getOrders());
+
+        productRepository.save(toUpdate);
+        return toUpdate;
     }
+
+    public void delete(Long productId) {
+        productRepository.deleteById(productId);
+    }
+
 }
