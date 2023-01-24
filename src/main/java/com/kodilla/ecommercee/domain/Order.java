@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 
+import com.kodilla.ecommercee.domain.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class Order {
     private Long orderId;
 
     @ManyToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             mappedBy = "orders")
     private List<Product> orderedProducts = new ArrayList<>();
 
@@ -53,5 +54,10 @@ public class Order {
         this.user = user;
         orderStatus = OrderStatus.CREATED;
         orderCreated = LocalDate.now();
+    }
+    public Order(User user, OrderStatus orderStatus, LocalDate orderCreated) {
+        this.user = user;
+        this.orderStatus = orderStatus;
+        this.orderCreated = orderCreated;
     }
 }
