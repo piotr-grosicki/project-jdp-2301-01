@@ -60,10 +60,10 @@ public class OrderTestSuite {
         order.getOrderedProducts().add(product);
         userRepository.save(user);
         orderRepository.save(order);
-        Product addedProduct = order.getOrderedProducts().get(product.getProductId().intValue());
+        int productsQuantity = orderRepository.findById(order.getOrderId()).get().getOrderedProducts().size();
 
         //THEN
-        assertEquals(product, addedProduct);
+        assertEquals(1, productsQuantity);
 
         //CLEAN UP
         orderRepository.deleteById(order.getOrderId());
