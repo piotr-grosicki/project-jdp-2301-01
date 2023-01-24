@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-@Transactional
 @Repository
-public interface OrderRepository extends CrudRepository<Order, Long> {
+@Transactional
+public interface OrderRepository extends CrudRepository<Order,Long> {
 
     @Override
     Optional<Order> findById(Long id);
 }
+
