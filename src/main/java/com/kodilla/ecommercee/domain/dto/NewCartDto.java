@@ -9,9 +9,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupDto {
-    private Long groupId;
-    private String groupName;
-    private String groupDescription;
+public class NewCartDto {
+    private Long userId;
     private List<Long> productsId;
 }

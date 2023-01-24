@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
 
-import com.kodilla.ecommercee.domain.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.time.LocalDate.now;
 
 @Data
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class Order {
     private Long orderId;
 
     @ManyToMany(
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             mappedBy = "orders")
     private List<Product> orderedProducts = new ArrayList<>();
 
@@ -39,9 +39,21 @@ public class Order {
     @Column(name = "ORDER_STATUS")
     private OrderStatus orderStatus;
 
-    @NotNull
     @Column(name = "CREATION_DATE")
     private LocalDate orderCreated;
+
+    public Order(List<Product> orderedProducts, User user) {
+        this.orderedProducts = orderedProducts;
+        this.user = user;
+        orderStatus = OrderStatus.CREATED;
+        orderCreated = LocalDate.now();
+    }
+
+    public Order(User user, OrderStatus orderStatus, LocalDate orderCreated) {
+        this.user = user;
+        this.orderStatus = orderStatus;
+        this.orderCreated = orderCreated;
+    }
 
     public Order(List<Product> orderedProducts, User user, OrderStatus orderStatus, LocalDate orderCreated) {
         this.orderedProducts = orderedProducts;
@@ -49,15 +61,5 @@ public class Order {
         this.orderStatus = orderStatus;
         this.orderCreated = orderCreated;
     }
-    public Order(List<Product> orderedProducts, User user) {
-        this.orderedProducts = orderedProducts;
-        this.user = user;
-        orderStatus = OrderStatus.CREATED;
-        orderCreated = LocalDate.now();
-    }
-    public Order(User user, OrderStatus orderStatus, LocalDate orderCreated) {
-        this.user = user;
-        this.orderStatus = orderStatus;
-        this.orderCreated = orderCreated;
-    }
+
 }
